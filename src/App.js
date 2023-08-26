@@ -5,9 +5,11 @@ import HomePage from './Pages/HomePage/HomePage.Component';
 
 function App() {
   return (
-    <div>  
+    <header>
+    <div className='font'>
       <HomePage></HomePage>
     </div>
+    </header>
   );
 }
 
