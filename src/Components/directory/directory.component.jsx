@@ -8,7 +8,7 @@ class Directory extends React.Component{
         super(props)
         this.state={
             sections:[{
-                id:5,
+                id:1,
                 title:'hats',
                 imageUrl:'https://i.ibb.co/cvpntL1/hats.png',
                 linkUrl:'hats'
@@ -26,7 +26,7 @@ class Directory extends React.Component{
                 linkUrl:'sneakers'
             },
             {   
-                 id:4,
+                id:4,
                 title:'womens',
                 imageUrl:'https://i.ibb.co/GCCdy8t/womens.png',
                 size:'large',

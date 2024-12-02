@@ -6,7 +6,7 @@ const MenuItem=({title,imageUrl,size,linkUrl,location})=>{
     const navigate=useNavigate()
 
     return(
-      <div  className={`${size} menu-item`} onClick={()=>{navigate(`${location.pathname}${linkUrl}`)}} >
+      <div  className={`${size ? size : ""} menu-item`} onClick={()=>{navigate(`${location.pathname}${linkUrl}`)}} >
         <div className='background-image' style={{
                 backgroundImage:`url(${imageUrl})`
             }}>
