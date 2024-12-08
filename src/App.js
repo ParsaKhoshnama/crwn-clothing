@@ -88,13 +88,18 @@ class App extends React.Component {
 
    signInAfterSignUp = (userRef)=>{
 
-    if(userRef)
-      this.setState({
+    if(userRef){
+     /* this.setState({
        currentuser:{
          id : Object.keys(userRef)[0],
          data : userRef[Object.keys(userRef)[0]]
        }
+      })*/
+       setCurrentUser({
+        id : Object.keys(userRef)[0],
+        data : userRef[Object.keys(userRef)[0]]
       })
+    }
    }
 
    render(){
