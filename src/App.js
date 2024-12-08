@@ -11,7 +11,7 @@ import Header from './Components/header/Header.component';
 
 import SignInAndSignUpPage from './Pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
-import {auth} from './firebase/firebase.utils'
+import {auth , createUserProfileDocument} from './firebase/firebase.utils'
 
 
 class App extends React.Component {
@@ -30,10 +30,28 @@ class App extends React.Component {
 
    componentDidMount(){
       
-      this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-        this.setState({currentuser : user})
+      this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth =>{
+       /* this.setState({currentuser : user}) */ 
+       if(userAuth){
+          
+         const userRef = await createUserProfileDocument(userAuth)
 
-        console.log(user);
+         this.setState({
+          currentuser:{
+            id : Object.keys(userRef)[0],
+            data : userRef[Object.keys(userRef)[0]]
+          }
+         })
+         
+         
+         
+      //  console.log(user);
+       }
+       else{
+        this.setState({
+          currentuser : userAuth
+        })
+       }
         
       })
    }
