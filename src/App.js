@@ -7,6 +7,9 @@ import ShopPage from './Pages/ShopPage/ShopPage.component';
 
 
 
+import signUpContext from './contexts/signup-context';
+
+
 import Header from './Components/header/Header.component';
 
 import SignInAndSignUpPage from './Pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -31,17 +34,24 @@ class App extends React.Component {
    componentDidMount(){
       
       this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth =>{
+        
        /* this.setState({currentuser : user}) */ 
        if(userAuth){
           
          const userRef = await createUserProfileDocument(userAuth)
-
+         console.log('Nasrin Joonam 2');
+        if(userRef)
          this.setState({
           currentuser:{
             id : Object.keys(userRef)[0],
             data : userRef[Object.keys(userRef)[0]]
           }
          })
+         else{
+          this.setState({
+            currentuser : null
+          })
+         }
          
          
          
@@ -61,9 +71,21 @@ class App extends React.Component {
       this.unsubscribeFromAuth()
    }
 
+   signInAfterSignUp = (userRef)=>{
+
+    if(userRef)
+      this.setState({
+       currentuser:{
+         id : Object.keys(userRef)[0],
+         data : userRef[Object.keys(userRef)[0]]
+       }
+      })
+   }
+
    render(){
 
       return (
+       <signUpContext.Provider value={this.signInAfterSignUp}>
         <div>
           <Header currentuser={this.state.currentuser}/>
           <Routes>
@@ -72,6 +94,7 @@ class App extends React.Component {
             <Route path='signin' Component={SignInAndSignUpPage} />
           </Routes>
         </div>
+        </signUpContext.Provider>
       )
    }
 

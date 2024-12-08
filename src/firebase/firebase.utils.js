@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
+import { use } from 'react';
 
 
 
@@ -30,21 +31,28 @@ export const auth = firebase.auth()
 export const firestore = firebase.firestore()
 
 export const  createUserProfileDocument = async (userAuth , additionalData)=>{
-
+    
+    
     if(!userAuth) 
         return
-   
     
    const response =await fetch(`https://crwn-db-18e05-default-rtdb.firebaseio.com/users/${userAuth.uid}.json`)
    const data = await response.json()
 
    if(!data){
       const {email , displayName} = userAuth
+
+      
+     
       const createdAt = new Date()
       const touple = {displayName,
         email,
         createdAt
       }
+      if (!touple.displayName)
+        touple.displayName = additionalData?.displayName 
+      if(!touple.displayName)
+        return
       await fetch(`https://crwn-db-18e05-default-rtdb.firebaseio.com/users/${userAuth.uid}.json`,{
         method : 'POST',
         headers : {
