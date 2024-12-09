@@ -4,7 +4,11 @@ import CustumButton from '../custom-button/custom-button.component'
 
 import {auth , createUserProfileDocument} from '../../firebase/firebase.utils'
 
+import { connect } from 'react-redux'
+
 import signUpContext from '../../contexts/signup-context'
+
+import { setCurrentUser } from '../../redux/user/user.actions'
 
 import './sign-up.styles.scss'
 
@@ -39,8 +43,10 @@ class SignUp extends React.Component {
           const { user } = await auth.createUserWithEmailAndPassword(email , password)
           
           const userRef = await createUserProfileDocument(user , {displayName})
-
-          this.context(userRef)
+          
+          
+          
+          await this.context(userRef)
           
           this.setState({
             displayName : '',
@@ -113,3 +119,4 @@ class SignUp extends React.Component {
 SignUp.contextType = signUpContext
 
 export default SignUp
+  

@@ -24,9 +24,9 @@ import { setCurrentUser } from './redux/user/user.actions';
 
 class App extends React.Component {
 
-   /* constructor(props){
+  /*  constructor(props){
 
-      super()
+      super(props)
 
       this.state = {
         currentuser : null
@@ -41,13 +41,12 @@ class App extends React.Component {
       const {setCurrentUser} = this.props
       
       this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth =>{
-        
+       
        /* this.setState({currentuser : user}) */ 
        if(userAuth){
           
          const userRef = await createUserProfileDocument(userAuth)
-         console.log('Nasrin Joonam 2');
-        if(userRef){
+         if(userRef){
       /*   this.setState({
           currentuser:{
             id : Object.keys(userRef)[0],
@@ -57,21 +56,14 @@ class App extends React.Component {
             setCurrentUser({
               id : Object.keys(userRef)[0],
               data : userRef[Object.keys(userRef)[0]]
-            })
-        }
-         else{
-         /* this.setState({
-            currentuser : null
-          })*/
-
-            setCurrentUser(null)
+           })
          }
          
          
-         
-      //  console.log(user);
        }
        else{
+        
+        
        /* this.setState({
           currentuser : userAuth
         })*/
@@ -86,19 +78,16 @@ class App extends React.Component {
       this.unsubscribeFromAuth()
    }
 
-   signInAfterSignUp = (userRef)=>{
+   signInAfterSignUp = async userRef=>{
 
-    if(userRef){
-     /* this.setState({
-       currentuser:{
-         id : Object.keys(userRef)[0],
-         data : userRef[Object.keys(userRef)[0]]
-       }
-      })*/
-       setCurrentUser({
+    if(userRef){ 
+
+       this.props.setCurrentUser({
         id : Object.keys(userRef)[0],
-        data : userRef[Object.keys(userRef)[0]]
+       data : userRef[Object.keys(userRef)[0]]
       })
+
+      
     }
    }
 
@@ -120,23 +109,11 @@ class App extends React.Component {
 
 }
 
-/*
- const App=()=> {
-  return (
-     <div>
-      <Header></Header>
-      <Routes>
-        <Route  path='/' Component={HomePage} />
-        <Route  path='/shop' Component={ShopPage}/>
-        <Route path='signin' Component={SignInAndSignUpPage} />
-      </Routes>
-     </div>
-  );
-}*/
 
 const mapDispatchoProps = dispatch =>({
 
   setCurrentUser : user => dispatch(setCurrentUser(user))
 })
+
 
 export default connect(null,mapDispatchoProps)(App);
