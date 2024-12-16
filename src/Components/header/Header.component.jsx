@@ -11,7 +11,7 @@ import {auth} from  '../../firebase/firebase.utils'
 
 import { connect } from 'react-redux'
 
-const Header=({currentuser,hidden})=>{
+const Header=({currentUser,hidden})=>{
     return(
         <div className='header'>
             <Link className='logo-container' to="/">
@@ -27,7 +27,7 @@ const Header=({currentuser,hidden})=>{
                     CONTACT
                 </Link>
                 {
-                    currentuser ? 
+                    currentUser ? 
                     <div className='option' onClick={()=> auth.signOut()}>SIGN OUT</div>
                     :
                     <Link className='option' to='/signin'>SIGN IN</Link>
