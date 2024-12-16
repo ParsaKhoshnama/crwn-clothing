@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import React from 'react'
-import {Routes,Route,Switch,Link} from 'react-router-dom'
+import {Routes,Route,Switch,Link,Redirect} from 'react-router-dom'
 import './App.css';
 import HomePage from './Pages/HomePage/HomePage.Component';
 import ShopPage from './Pages/ShopPage/ShopPage.component';
@@ -23,6 +23,7 @@ import { setCurrentUser } from './redux/user/user.actions';
 
 
 class App extends React.Component {
+
 
   /*  constructor(props){
 
@@ -100,7 +101,7 @@ class App extends React.Component {
           <Routes>
             <Route  path='/' Component={HomePage} />
             <Route  path='/shop' Component={ShopPage}/>
-            <Route path='signin' Component={SignInAndSignUpPage} />
+            <Route path='/signin' Component={SignInAndSignUpPage}  />
           </Routes>
         </div>
         </signUpContext.Provider>
@@ -115,5 +116,10 @@ const mapDispatchoProps = dispatch =>({
   setCurrentUser : user => dispatch(setCurrentUser(user))
 })
 
+const mapStateToProps = ({user:{currentUser}}) =>({
 
-export default connect(null,mapDispatchoProps)(App);
+    currentUser
+})
+
+
+export default connect(mapStateToProps,mapDispatchoProps)(App);
