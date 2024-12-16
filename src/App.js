@@ -2,10 +2,10 @@ import logo from './logo.svg';
 import React from 'react'
 import {Routes,Route,Switch,Link,Redirect} from 'react-router-dom'
 import './App.css';
+import withRouter from './Components/withRouter/withRouter';
 import HomePage from './Pages/HomePage/HomePage.Component';
 import ShopPage from './Pages/ShopPage/ShopPage.component';
-
-
+import CheckoutPage from './Pages/Checkout/checkout.component';
 
 import signUpContext from './contexts/signup-context';
 
@@ -18,7 +18,13 @@ import {auth , createUserProfileDocument} from './firebase/firebase.utils'
 
 import { connect } from 'react-redux';
 
+import { createStructuredSelector } from 'reselect';
+
+import {selectCurrentUser} from './redux/user/user.selectors'
+
 import { setCurrentUser } from './redux/user/user.actions';
+
+
 
 
 
@@ -88,6 +94,8 @@ class App extends React.Component {
        data : userRef[Object.keys(userRef)[0]]
       })
 
+      this.props.navigate('/')
+
       
     }
    }
@@ -102,6 +110,7 @@ class App extends React.Component {
             <Route  path='/' Component={HomePage} />
             <Route  path='/shop' Component={ShopPage}/>
             <Route path='/signin' Component={SignInAndSignUpPage}  />
+            <Route path='/checkout' Component={CheckoutPage} />
           </Routes>
         </div>
         </signUpContext.Provider>
@@ -116,10 +125,10 @@ const mapDispatchoProps = dispatch =>({
   setCurrentUser : user => dispatch(setCurrentUser(user))
 })
 
-const mapStateToProps = ({user:{currentUser}}) =>({
+const mapStateToProps = createStructuredSelector({
 
-    currentUser
+    currentUser : selectCurrentUser
 })
 
 
-export default connect(mapStateToProps,mapDispatchoProps)(App);
+export default withRouter(connect(mapStateToProps,mapDispatchoProps)(App));
